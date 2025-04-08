@@ -3,7 +3,7 @@
 rl_or_sft: "rl"
 # System settings
 system:
-  cuda_visible_devices: 0
+  cuda_visible_devices: 1
   n_gpus: 1
   vllm_attention_backend: "XFORMERS"
   hydra_output_subdir: "outputs/exp_configs/logs/$(date +%Y-%m-%d)/$(date +%H-%M-%S)"
@@ -18,16 +18,16 @@ model:
 training:
   train_data_num: null
   val_data_num: 100
-  val_batch_size: 100
-  micro_batch_size: 4
-  train_batch_size: 8
+  val_batch_size: 2 # 100
+  micro_batch_size: 2
+  train_batch_size: 2
   ppo_batch_size: 32
   max_start_length: 400
   max_response_length: 400
   max_obs_length: 200
   max_turns: 5
   rollout_tp_size: 1
-  n_rollout: 16
+  n_rollout: 1 # 16
   total_epochs: 5
   temperature: 0.7
   use_sft: false
@@ -62,7 +62,7 @@ logging:
 
 # Trainer settings
 trainer:
-  val_before_train: true
+  val_before_train: false
   val_only: false
   default_hdfs_dir: null
   nnodes: 1
@@ -97,7 +97,7 @@ sft:
     logger: "['console','wandb']"
     epochs: 5
     hdfs_dir: null
-    validate_before_training: true
+    validate_before_training: false
     lora_rank: 64
     lora_alpha: 32
     target_modules: "all-linear"

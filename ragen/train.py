@@ -24,7 +24,7 @@ def load_config(env_name: str) -> Dict[str, Any]:
         config = yaml.safe_load(f)
     #print("config1",config)
     # Load environment config
-    env_config_path = f"config/env/{env_name}.yaml"
+    env_config_path = f"config/{env_name}.yaml"
     if os.path.exists(env_config_path):
         with open(env_config_path, 'r') as f:
             env_config = yaml.safe_load(f)
@@ -60,8 +60,10 @@ def get_rl_train_command(config: Dict[str, Any]) -> str:
         f"CUDA_VISIBLE_DEVICES={config['system']['cuda_visible_devices']}",
         "python -m ragen.trainer.main_ppo",
         f"hydra.run.dir={config['system']['hydra_output_subdir']}",
-        f"data.train_files=null",
-        f"data.val_files=null",
+        # f"data.train_files=null",
+        # f"data.val_files=null",
+        f"data.train_files={config['env']['data_dir']}/train.parquet",
+        f"data.val_files={config['env']['data_dir']}/test.parquet",
         f"data.train_data_num={config['training']['train_data_num'] or 'null'}",
         f"data.val_data_num={config['training']['val_data_num'] or 'null'}",
         f"data.train_batch_size={config['training']['train_batch_size']}",

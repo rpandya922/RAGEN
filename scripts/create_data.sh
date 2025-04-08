@@ -96,8 +96,8 @@ main() {
     
     # Create datasets
     create_sokoban_dataset
-    create_frozen_lake_dataset
-    create_two_armed_bandit_dataset
+    # create_frozen_lake_dataset
+    # create_two_armed_bandit_dataset
     
     echo -e "${GREEN}All datasets created successfully!${NC}"
 }

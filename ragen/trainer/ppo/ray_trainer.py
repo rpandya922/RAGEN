@@ -631,7 +631,11 @@ class RayPPOTrainer(object):
 
         envs = [self.env.copy() for _ in range(self.config.data.train_batch_size * self.config.actor_rollout_ref.rollout.n_agent)] 
 
-
+        # print("============================================================================")
+        # print("GOT TO HERE")
+        # print(len(envs))
+        # print("============================================================================")
+        # import ipdb; ipdb.set_trace()
 
         # start training loop
         for epoch in range(self.config.trainer.total_epochs):
